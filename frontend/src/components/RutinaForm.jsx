@@ -334,7 +334,6 @@ function RutinaForm({ rutina, onCreado, onCancelar }) {
               <ExerciseForm
                 ejercicio={ejercicioEnEdicion}
                 onAgregar={guardarEjercicio}
-                onCancelar={cerrarModalEjercicio}
               />
             </div>
           </div>
@@ -368,4 +367,22 @@ function RutinaForm({ rutina, onCreado, onCancelar }) {
   );
 }
 
+
 export default RutinaForm;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

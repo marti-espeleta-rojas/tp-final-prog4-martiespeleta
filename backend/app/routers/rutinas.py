@@ -65,7 +65,7 @@ def listar_rutinas(db: Session = Depends(get_db)):
     Antes retornaba RutinaResponse (sin ejercicios)
     Ahora retorna RutinaDetailResponse (CON ejercicios)
     """
-    rutinas = db.query(Rutina).order_by(Rutina.fecha_creacion.desc()).all()
+    rutinas = db.query(Rutina).order_by(Rutina.fecha_creacion.asc()).all()
     return rutinas
 
 
