@@ -1,3 +1,4 @@
+
 /**
  * COMPONENTE: ExerciseForm.jsx
  * DESCRIPCIÓN: Formulario para agregar/editar ejercicios
@@ -9,7 +10,7 @@
  * - Mostrar todos los campos de un ejercicio
  */
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 
 const DIAS_SEMANA = [
   'Lunes',
@@ -33,6 +34,22 @@ function ExerciseForm({ ejercicio, onAgregar, onCancelar }) {
   const [peso, setPeso] = useState(ejercicio?.peso?.toString() || '');
   const [notas, setNotas] = useState(ejercicio?.notas || '');
   const [errores, setErrores] = useState({});
+
+  // =========================================================================
+  // EFECTOS
+  // =========================================================================
+
+  // Resetear formulario cuando cambia el ejercicio
+  useEffect(() => {
+    // eslint-disable-next-line react-hooks/set-state-in-effect
+    setNombre(ejercicio?.nombre || '');
+    setDiaSemana(ejercicio?.dia_semana || 'Lunes');
+    setSeries(ejercicio?.series?.toString() || '3');
+    setRepeticiones(ejercicio?.repeticiones?.toString() || '10');
+    setPeso(ejercicio?.peso ? ejercicio.peso.toString() : '');
+    setNotas(ejercicio?.notas || '');
+    setErrores({});
+  }, [ejercicio]);
 
   // =========================================================================
   // VALIDACIÓN
@@ -127,7 +144,7 @@ function ExerciseForm({ ejercicio, onAgregar, onCancelar }) {
     <div className="formulario-ejercicio">
       <h4>{ejercicio ? 'Editar Ejercicio' : 'Nuevo Ejercicio'}</h4>
 
-      <form onSubmit={manejarSubmit} className="form-ejercicio">
+      <div onSubmit={manejarSubmit} className="form-ejercicio" style={{ display: 'contents' }}>
         {/* Nombre del ejercicio */}
         <div className="campo-grupo small">
           <label htmlFor="nombre-ej">Nombre *</label>
@@ -209,7 +226,7 @@ function ExerciseForm({ ejercicio, onAgregar, onCancelar }) {
 
         {/* Botones */}
         <div className="botones-ejercicio">
-          <button type="submit" className="btn btn-small btn-primary">
+          <button type="button" onClick={manejarSubmit} className="btn btn-small btn-primary">
             {ejercicio ? 'Actualizar Ejercicio' : 'Agregar Ejercicio'}
           </button>
           <button
@@ -220,7 +237,7 @@ function ExerciseForm({ ejercicio, onAgregar, onCancelar }) {
             Cancelar
           </button>
         </div>
-      </form>
+      </div>
     </div>
   );
 }
